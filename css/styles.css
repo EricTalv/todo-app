@@ -1,0 +1,117 @@
+/*
+
+color pallet 1
+
+#E8E8E8 - light
+#F05454 - red
+#30475E - navy
+#222831 - dark
+
+*/
+
+
+/* GLOBAL */
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100vh;
+}
+
+body {
+  background-color: #E8E8E8;
+
+  color: #222831;
+
+  font-family:'Consolas', Courier, monospace;
+
+}
+
+/* APP CONTAINER*/
+.todo {
+
+  width: 100%;
+  height: 80vh;
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+
+}
+
+.todo__content, .todo-input {
+  padding: 30px;
+
+  border: 2px solid black;
+  box-shadow: 10px 10px 0px 1px rgba(0,0,0,1);
+
+  min-width: 500px;
+}
+
+.todo__content {
+
+  margin-bottom: 35px;
+
+}
+
+.todo__title {
+  font-size: 25px;
+  border: 2px solid black;
+  padding: 5px 20px 5px 20px;
+}
+
+.todo-input {
+
+  min-width: 500px;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+}
+
+.todo__input--input {
+  height: 40px;
+  flex-grow: 1;
+  margin-right: 15px;
+  border: 1px solid black;
+  border-radius: 0;
+
+}
+
+.todo__input--input:focus {
+  outline: none;
+  border: 1px solid #F05454;
+}
+
+.todo__input--button {
+  border-radius: 0;
+  border: 1px solid black;
+  background-color: #F05454;
+
+  padding: 0 20px 0 20px;
+}
+
+.todo--status__text {
+  margin-top: 5px;
+  flex-basis: 100%;
+}
+
+.todo__input--button:hover {
+  cursor: pointer;
+  color: #E8E8E8;
+  background-color: #30475E;
+  border: 1px solid #30475E;
+}
+
+.todo__input--button:active {
+  background-color: #1a7237;
+
+}
+
+
+
+
