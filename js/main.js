@@ -9,6 +9,8 @@ var todoInput = document.querySelector('#todo__input');
 
 var statusText = document.querySelector('#todo__status');
 
+var listCounter = 0;
+
 // populate list on page load 
 // populateList();
 
@@ -66,17 +68,54 @@ function addItemToList() {
 
   } else {
     
-    // create list-item element
+    listCounter++;
+
+    // create item element skeleton
     const listItem = document.createElement('li');
+    const divWrapper = document.createElement('div');
+    const itemSpanText = document.createElement('span');
+    const itemSpanKey = document.createElement('span');
+    const divContent = document.createElement('div');
+    const divActions = document.createElement('div');
+    const anchorDelete = document.createElement('a');
+    const anchorUpdate = document.createElement('a');
 
-    // append todo-input value to list item element
-    listItem.appendChild(document.createTextNode(todoInput.value));
-
-    // set class for list item
+    // add classes to elements
     listItem.setAttribute('class', 'todo__item');
-  
+    divWrapper.setAttribute('class', 'todo__item__wrapper');
+    itemSpanKey.setAttribute('class', 'todo__item--key');
+    itemSpanText.setAttribute('class', 'todo__item--text');
+    divContent.setAttribute('class', 'todo__item__content');
+    divActions.setAttribute('class', 'todo__item__actions');
+    anchorDelete.setAttribute('class', 'todo__item--delete');
+    anchorUpdate.setAttribute('class', 'todo__item--update');
+
+
+    /* append elements */
+    // todo content
+    divContent.appendChild(itemSpanKey);
+    divContent.appendChild(itemSpanText);
+
+    // actions and content > wrapper
+    divWrapper.appendChild(divContent);
+    divWrapper.appendChild(divActions);
+
+    // todo actions
+    divActions.appendChild(anchorDelete);
+    divActions.appendChild(anchorUpdate);
+
+    // wrapper > list item
+    listItem.appendChild(divWrapper);
+   
     // append list-item to list element
     list.appendChild(listItem);
+
+    // add text values
+    itemSpanKey.innerHTML = `${listCounter}.`;
+    itemSpanText.innerHTML = todoInput.value;
+    anchorDelete.innerHTML = "x";
+    anchorUpdate.innerHTML = "o";
+
 
     // reset input & status
     todoInput.value = "";
