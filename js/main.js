@@ -55,7 +55,8 @@ function addItemToList() {
 
     let itemValue = todoInput.value;
 
-    createItem(itemValue);
+    let itemValueSanitized = itemValue.replace(/[^a-zA-Z0-9]/g, '');
+    createItem(itemValueSanitized);
   
   }
 }
@@ -205,7 +206,9 @@ function updateItem(event) {
       if (currentlySelectedItem) {
         let promptValue = prompt(`Change >__${dataValue}__< to: `);
 
-        if (promptValue === '') {
+        let promptValueSanitized = promptValue.replace(/[^a-zA-Z0-9]/g, '');
+
+        if (promptValueSanitized === '') {
           alert('field cannot be empty');
         } else {
 
@@ -213,13 +216,13 @@ function updateItem(event) {
           let itemObjIndex = listItems.indexOf(currentlySelectedItem);
 
           // set value in array 
-          listItems[itemObjIndex].value = promptValue;
+          listItems[itemObjIndex].value = promptValueSanitized;
 
           // set data attribute in dom
-          parent.setAttribute("data-value", promptValue);
+          parent.setAttribute("data-value", promptValueSanitized);
 
           // change value in dom
-          parent.querySelector(".todo__item--text").innerHTML = promptValue;
+          parent.querySelector(".todo__item--text").innerHTML = promptValueSanitized;
 
           /*
           change value in local storage 
