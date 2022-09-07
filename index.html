@@ -5,42 +5,48 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/resets.css">
-  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/global.css">
+
+  <link id="stylesheet" rel="stylesheet" href="./css/themes/grey.css">
+
   <script src="./js/main.js" defer></script>
-  <title>TODO V1</title>
+  <script src="./js/themeSwitcher.js" defer></script>
+  <title>ACTIONATOR 1000</title>
 </head>
 <body>
 
-  <div class="todo">
-
-      <fieldset class="todo__content">
-        <legend class="todo__title">TODO</legend>
-        <ol id="todo__list" class="todo__list">
-          <li style="display:none;" data-id="1" data-value="content" class="todo__item">
-          
-            <div class="todo__item__wrapper">
-
-              <div class="todo__item__content">
-                <span class="todo__item--text">content</span>
-              </div>
-              <div class="todo__item__actions">
-                <a class="todo__item--delete">DEL</a>
-                <a class="todo__item--update">UPD</a>
-              </div>
-            </div>
-          </li>
-          
-        </ol>
-      </fieldset>
+  <main>
 
 
-      <div class="todo-input">
-        <input id="todo__input" class="todo__input"  type="text">
-        <button id="todo__button" class="todo__button">+</button>
-        <small id="todo__status" class="todo__status"></small>
-      </div>
+    <div  class="theme-switcher">
+      <select name="themes" id="themes" onchange="changeTheme(event)">
+        <option id="default" value="grey">Grey</option>
+        <option id="bios" value="bios">BIOS</option>
+        <option id="console" value="console">Console</option>
+      </select>
+    </div>
 
-  </div>
+ 
+      <div class="todo">
+
+        <div class="todo__title">ACTIONATOR 1000</div>
+
+        <div class="todo__content">
+          <ol id="todo__list" class="todo__list">
+          </ol>
+        </div>
+
+
+        <div class="todo__inputs">
+          <input id="todo__text-field" class="todo__text-field"  type="text">
+          <button id="todo__button" class="todo__button">+</button>
+          <small id="todo__status" class="todo__status"></small>
+        </div>
+
+    </div>
+  </main>
+
+ 
   
 
 </body>

@@ -1,0 +1,217 @@
+
+/* VARIABLES */
+
+:root {
+  /* body */
+  --body-bg: #0000AA;
+  --font-family: 'Consolas', Courier, monospace;
+ 
+  /* todo */
+  --box-shadow: -0.6rem 0.6rem 0 rgba(29, 30, 28, 0.26);
+
+  --todo-borders: 1px solid black;
+  --todo-bg: #fff;
+
+
+  /* list */
+  --list-bg: transparent;
+  --list-border-top: 1px solid black;
+  --list-border-bottom: 1px solid black;
+
+  /* list-item */
+  --item-padding-y: 10px;
+  --item-bg: transparent;
+  --item-color: #000;
+
+  --item-bg-hover: #d3d3d3;
+
+  /* text field */
+  --text-field-borders: 2px solid rgba(0, 0, 0, 0.6);
+  --text-field-bg: #bebebe;
+
+
+  /* button */
+  --button-bg: #858585;
+  --button-color: #fff;
+  --button-font-size: 20px;
+
+  --button-border: 2px solid rgba(0, 0, 0, 0.6);
+  --button-bg-hover: #30475E;
+  --button-border-hover: 2px solid #30475E;
+  --button-color-hover: #fff;
+
+  --button-bg-active: #1a7237;;
+
+
+
+}
+
+
+/* GLOBAL */
+
+body {
+  background-color: var(--body-bg);
+
+  font-family: var(--font-family);
+
+}
+
+
+
+/* APP CONTAINER*/
+
+
+.todo {
+
+  display: inline;
+ 
+
+  border: var(--todo-borders);
+
+
+  background-color: var(--todo-bg);
+  
+  width: 400px;
+
+  box-shadow: var(--box-shadow);
+
+}
+
+.todo__content {
+  padding: 0;
+  margin: 0;
+}
+
+.todo__title, .todo__content {
+
+  width: 100%;
+}
+
+.todo__title, .todo__inputs, .todo__list {
+  padding: 20px 20px;
+}
+
+.todo__title {
+  padding-bottom: 3px;
+}
+
+/* Inputs and Buttons */
+
+.todo__inputs {
+
+  display: flex;
+  flex-wrap: wrap;
+
+  padding-top: 5px;
+
+}
+
+.todo__text-field {
+  height: 40px;
+  flex-grow: 1;
+  margin-right: 15px;
+  border-radius: 0;
+
+
+  border: var(--text-field-borders);
+  background-color: var(--text-field-bg);
+}
+
+
+
+.todo__button {
+  background-color: var(--button-bg);
+
+  border: var(--button-border);
+  font-size: var(--button-font-size);
+  color: var(--button-color);
+
+  padding: 0 20px 0 20px;
+}
+
+.todo__status {
+  margin-top: 5px;
+  flex-basis: 100%;
+}
+
+
+.todo__button:hover {
+  cursor: pointer;
+  color: var(--button-color-hover);
+  background-color: var(--button-bg-hover);
+  border: var(--button-border-hover);
+}
+
+.todo__button:active {
+  background-color: var(--button-bg-active);
+
+}
+
+/* TODO item controls */
+
+.todo__item--text {
+  padding-left: 5px;
+}
+
+.todo__list {
+  margin: 0 0 15px 0;
+  list-style-position: inside;
+  border-top: var(--list-border-top);
+
+  background-color: var(--list-bg);
+
+  border-bottom: var(--list-border-bottom);
+
+  max-height: 300px;
+  overflow-y: auto;
+
+}
+  
+.todo__item__wrapper {
+  display: inline;
+
+}
+
+.todo__item__content, .todo__item__actions {
+  display: inline;
+}
+
+.todo__item__actions {
+  float: right;
+}
+
+.todo__item__actions {
+  visibility: hidden;
+}
+
+.todo__item--delete:before {
+  content: 'X';
+}
+
+.todo__item--update:before {
+  content: 'O';
+}
+
+.todo__item {
+  padding: var(--item-padding-y) 0;
+
+  background-color: var(--item-bg);
+  color: var(--item-color);
+
+}
+
+.todo__item:hover {
+  background-color: var(--item-bg-hover);
+  cursor: pointer;
+}
+
+#todo__list li:hover .todo__item__actions{
+  cursor: pointer;
+  visibility: visible;
+}
+
+.todo__item--delete {
+  padding-right: 5px;
+}
+
+

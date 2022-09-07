@@ -4,7 +4,7 @@
 
 var list = document.querySelector("#todo__list");
 var submitButton = document.querySelector("#todo__button");
-var todoInput = document.querySelector("#todo__input");
+var todoInput = document.querySelector("#todo__text-field");
 var statusText = document.querySelector("#todo__status");
 
 var itemCounter = 0;
@@ -13,6 +13,8 @@ var listItems = [];
 /**
  * Event Listeners
  */
+
+document.addEventListener('DOMContentLoaded', getTodosFromStorage);
 
 submitButton.addEventListener("click", addItemToList);
 list.addEventListener("click", (event) => {
@@ -31,6 +33,7 @@ todoInput.addEventListener("keypress", function (event) {
   }
 });
 
+
 /**
  *  C R U D Operations
  */
@@ -41,71 +44,84 @@ function addItemToList() {
   if (!todoInput.value) {
     statusText.innerHTML = "input is empty.";
   } else {
-    itemCounter++;
 
     let itemValue = todoInput.value;
-    let itemId = itemCounter;
-    let itemListIndex = itemCounter - 1;
 
-    // push item to array
-
-    const item = { id: itemId, value: itemValue };
-    listItems.push(item);
-
-    // create item element skeleton
-    const listItem = document.createElement("li");
-    const divWrapper = document.createElement("div");
-    const itemSpanText = document.createElement("span");
-    const divContent = document.createElement("div");
-    const divActions = document.createElement("div");
-    const anchorDelete = document.createElement("a");
-    const anchorUpdate = document.createElement("a");
-
-    // add classes to elements
-    listItem.setAttribute("class", "todo__item");
-    listItem.setAttribute("id", "todo__item");
-    listItem.setAttribute("data-id", itemId);
-    listItem.setAttribute("data-value", itemValue);
-
-    divWrapper.setAttribute("class", "todo__item__wrapper");
-    itemSpanText.setAttribute("class", "todo__item--text");
-    divContent.setAttribute("class", "todo__item__content");
-    divActions.setAttribute("class", "todo__item__actions");
-    anchorDelete.setAttribute("class", "todo__item--delete");
-    anchorUpdate.setAttribute("class", "todo__item--update");
-
-    /* append elements */
-    // todo content
-    divContent.appendChild(itemSpanText);
-
-    // actions and content > wrapper
-    divWrapper.appendChild(divContent);
-    divWrapper.appendChild(divActions);
-
-    // todo actions
-    divActions.appendChild(anchorDelete);
-    divActions.appendChild(anchorUpdate);
-
-    // wrapper > list item
-    listItem.appendChild(divWrapper);
-
-    // append list-item to list element
-    list.appendChild(listItem);
-
-    // add text values
-    itemSpanText.innerHTML = itemValue;
-    anchorDelete.innerHTML = "DEL";
-    anchorUpdate.innerHTML = "UPD";
-
-    // reset input & status
-    todoInput.value = "";
-    statusText.innerHTML = "";
+    createItem(itemValue);
+  
   }
+}
+
+function createItem(itemValue) {
+
+  // define counter and itemId
+  itemCounter++;
+  let itemId = itemCounter;
+
+  // push item to array
+  const item = { id: itemId, value: itemValue };
+  listItems.push(item);
+
+  // save to local storage
+  saveToLocalStorage(item);
+
+  // create item element skeleton
+  createItemSkeleton(itemId, itemValue);
+ 
+}
+
+function createItemSkeleton(itemId, itemValue) {
+  const listItem = document.createElement("li");
+  const divWrapper = document.createElement("div");
+  const itemSpanText = document.createElement("span");
+  const divContent = document.createElement("div");
+  const divActions = document.createElement("div");
+  const anchorDelete = document.createElement("a");
+  const anchorUpdate = document.createElement("a");
+
+  // add classes to elements
+  listItem.setAttribute("class", "todo__item");
+  listItem.setAttribute("id", "todo__item");
+  listItem.setAttribute("data-id", itemId);
+  listItem.setAttribute("data-value", itemValue);
+
+  divWrapper.setAttribute("class", "todo__item__wrapper");
+  itemSpanText.setAttribute("class", "todo__item--text");
+  divContent.setAttribute("class", "todo__item__content");
+  divActions.setAttribute("class", "todo__item__actions");
+  anchorDelete.setAttribute("class", "todo__item--delete");
+  anchorUpdate.setAttribute("class", "todo__item--update");
+
+  /* append elements */
+  // todo content
+  divContent.appendChild(itemSpanText);
+
+  // actions and content > wrapper
+  divWrapper.appendChild(divContent);
+  divWrapper.appendChild(divActions);
+
+  // todo actions
+  divActions.appendChild(anchorDelete);
+  divActions.appendChild(anchorUpdate);
+
+  // wrapper > list item
+  listItem.appendChild(divWrapper);
+
+  // append list-item to list element
+  list.appendChild(listItem);
+
+  // add text values
+  itemSpanText.innerHTML = itemValue;
+
+  // reset input & status
+  todoInput.value = "";
+  statusText.innerHTML = "";
 }
 
 // D - delete item from list
 function deleteItem(event) {
-  const element = event.target;
+
+  let element = event.target;
 
   if (element.classList[0] === "todo__item--delete") {
     // get parent of selected item
@@ -114,14 +130,15 @@ function deleteItem(event) {
       // get values from parent
       let dataId = parseInt(parent.getAttribute("data-id"), 10);
       let dataValue = parent.getAttribute("data-value");
-
+      
+    
       // check for current item
       let currentlySelectedItem = listItems.find(
         (item) => item.id === dataId && item.value === dataValue
       );
 
+
       if (currentlySelectedItem) {
-        
 
         // find object array index
         let itemObjIndex = listItems.indexOf(currentlySelectedItem);
@@ -132,17 +149,22 @@ function deleteItem(event) {
         // remove element from dom
         element.closest('#todo__item').remove();
 
+        console.log('true');
 
-     
-      } else {
-        console.log("object not found");
-      }
-    } else {
-      console.log("item id not found");
-    }
-  } else {
-    console.log("update button not found");
-  }
+
+         /*
+          remove element from storage
+         */
+        
+         let getStoredItems = localStorage.getItem('localTodoItems'); // get local todo items string
+         let itemsParsed = JSON.parse(getStoredItems); // turn string into object 
+         itemsParsed.splice(itemObjIndex, 1); // change current item
+         let modifiedStringifiedStorage = JSON.stringify(itemsParsed); // stringify object back
+         localStorage.setItem('localTodoItems', modifiedStringifiedStorage); // push object into local storage
+ 
+      } 
+    } 
+  } 
 }
 
 // U - update an existing element in the list
@@ -166,21 +188,91 @@ function updateItem(event) {
       if (currentlySelectedItem) {
         let promptValue = prompt(`Change >__${dataValue}__< to: `);
 
-        // find object array index
-        let itemObjIndex = listItems.indexOf(currentlySelectedItem);
+        if (promptValue === '') {
+          alert('field cannot be empty');
+        } else {
 
-        // set value in array object
-        listItems[itemObjIndex].value = promptValue;
+          // find object array index
+          let itemObjIndex = listItems.indexOf(currentlySelectedItem);
 
-        // set data attribute in dom
-        parent.setAttribute("data-value", promptValue);
+          // set value in array 
+          listItems[itemObjIndex].value = promptValue;
 
-        // change value in dom
-        parent.querySelector(".todo__item--text").innerHTML = promptValue;
+          // set data attribute in dom
+          parent.setAttribute("data-value", promptValue);
+
+          // change value in dom
+          parent.querySelector(".todo__item--text").innerHTML = promptValue;
+
+          /*
+          change value in local storage 
+          */
+          
+          let getStoredItems = localStorage.getItem('localTodoItems'); // get local todo items string
+          let itemsParsed = JSON.parse(getStoredItems); // turn string into object 
+          itemsParsed[itemObjIndex].value = promptValue; // change current item
+          let modifiedStringifiedStorage = JSON.stringify(itemsParsed); // stringify object back
+          localStorage.setItem('localTodoItems', modifiedStringifiedStorage); // push object into local storage
+
+        }
+
+
       } 
     } 
   }
 }
 
-// Local storage
-function saveToLocalStorage() {}
+
+/**
+ *  Local Storage
+ *    - make it so your data stays put when you leave the site
+ */
+
+// save todo-item to local storage
+function saveToLocalStorage(todoItem) {
+
+
+  let localTodoItems;
+
+  if (localStorage.getItem('localTodoItems') === null) {
+     localTodoItems = [];
+      
+  } else {
+    localTodoItems = JSON.parse(localStorage.getItem('localTodoItems'));
+  }
+
+  localTodoItems.push(todoItem);
+  localStorage.setItem('localTodoItems', JSON.stringify(localTodoItems));
+ 
+
+}
+
+// get todo-items from storage and add items to dom
+function getTodosFromStorage() {
+
+  let localTodoItems;
+
+  if (localStorage.getItem('localTodoItems') === null) {
+    
+    localTodoItems = [
+      { id: 1, value: 'buy apples' },
+      { id: 2, value: 'buy oranges' },
+      { id: 3, value: 'buy lemons' }
+
+    ];
+     
+
+    localStorage.setItem('localTodoItems', JSON.stringify(localTodoItems));
+    
+      
+  } else {
+    localTodoItems = JSON.parse(localStorage.getItem('localTodoItems'));
+  }
+
+
+  localTodoItems.forEach(function(item) {
+    createItemSkeleton(item.id, item.value);
+    listItems.push(item);
+  });
+ 
+}
