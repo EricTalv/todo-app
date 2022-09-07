@@ -29,8 +29,8 @@
 
   /* list */
   --list-bg: transparent;
-  --list-border-top: 1px solid black;
-  --list-border-bottom: 1px solid black;
+  --list-border-top: 2px solid #000;
+  --list-border-bottom: 2px solid #000;
 
 
 
@@ -104,14 +104,14 @@ body {
   width: 100%;
 }
 
-.todo__title, .todo__inputs, .todo__list {
+.todo__inputs, .todo__list {
   padding: 20px 20px;
 }
 
 .todo__title {
-  padding-bottom: 3px;
   font-size: 30px;
   font-weight: bold;
+  padding: 20px 20px 10px 20px;
 }
 
 /* Inputs and Buttons */
@@ -121,7 +121,6 @@ body {
   display: flex;
   flex-wrap: wrap;
 
-  padding-top: 5px;
 
 }
 
@@ -189,7 +188,7 @@ body {
   max-height: 300px;
   overflow-y: auto;
 
-
+  margin: 0;
   font-size: 20px;
 
 }
