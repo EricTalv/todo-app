@@ -55,8 +55,14 @@ function addItemToList() {
 
     let itemValue = todoInput.value;
 
-    let itemValueSanitized = itemValue.replace(/[^a-zA-Z0-9]/g, '');
-    createItem(itemValueSanitized);
+    let itemValueSanitized = itemValue.replace(/[^a-zA-Z0-9]+/ig, '');
+
+    if (itemValueSanitized === '') {
+      statusText.innerHTML = "input is empty or has special characters.";
+    } else {
+     createItem(itemValueSanitized);
+
+    }
   
   }
 }
@@ -206,7 +212,7 @@ function updateItem(event) {
       if (currentlySelectedItem) {
         let promptValue = prompt(`Change >__${dataValue}__< to: `);
 
-        let promptValueSanitized = promptValue.replace(/[^a-zA-Z0-9]/g, '');
+        let promptValueSanitized = promptValue.replace(/[^a-zA-Z0-9]+/ig, '');
 
         if (promptValueSanitized === '') {
           alert('field cannot be empty');
