@@ -10,6 +10,9 @@ var statusText = document.querySelector("#todo__status");
 var itemCounter = 0;
 var listItems = [];
 
+
+
+
 /**
  * Event Listeners
  */
@@ -21,6 +24,11 @@ list.addEventListener("click", (event) => {
   deleteItem(event);
   updateItem(event);
 });
+
+
+list.addEventListener("DOMNodeInsterted", function() {
+  console.log('true');
+})
 
 // add enter-key-press functionality
 todoInput.addEventListener("keypress", function (event) {
@@ -67,6 +75,8 @@ function createItem(itemValue) {
 
   // create item element skeleton
   createItemSkeleton(itemId, itemValue);
+
+  
  
 }
 
@@ -116,6 +126,7 @@ function createItemSkeleton(itemId, itemValue) {
   // reset input & status
   todoInput.value = "";
   statusText.innerHTML = "";
+
 }
 
 // D - delete item from list
@@ -146,10 +157,16 @@ function deleteItem(event) {
         // remove value from object
         listItems.splice(itemObjIndex, 1);
 
-        // remove element from dom
-        element.closest('#todo__item').remove();
+        // animate deletion
+        parent.classList.add('delete-animation');
 
-        console.log('true');
+        // wait till animation is finished 
+        parent.addEventListener('transitionend', function(){
+            // remove element from dom
+            parent.remove();
+        });
+        
+       
 
 
          /*
@@ -276,3 +293,5 @@ function getTodosFromStorage() {
   });
  
 }
+
+

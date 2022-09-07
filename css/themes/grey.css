@@ -74,6 +74,7 @@ body {
 
   box-shadow: var(--box-shadow);
 
+  transition: all .5s ease-in-out;
 }
 
 .todo__content {
@@ -125,7 +126,13 @@ body {
   font-size: var(--button-font-size);
   color: var(--button-color);
 
+
   padding: 0 20px 0 20px;
+}
+
+.todo__button:before {
+  content: '+';
+
 }
 
 .todo__status {
@@ -148,9 +155,7 @@ body {
 
 /* TODO item controls */
 
-.todo__item--text {
-  padding-left: 5px;
-}
+
 
 .todo__list {
   margin: 0 0 15px 0;
@@ -183,12 +188,50 @@ body {
   visibility: hidden;
 }
 
-.todo__item--delete:before {
-  content: 'X';
+.todo__item--delete {
+ 
+  mask-image: url('../../assets/grey/delete.svg');
+  -webkit-mask-image: url('../../assets/grey/delete.svg');
+
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+
+  mask-position: center;
+  -webkit-mask-position: center;
+
+  mask-size: contain;
+  -webkit-mask-size: contain;
+
+  padding: 15px;
+
+
+  background-color: #858585;
+
+  margin-right: 6px;
+  
 }
 
-.todo__item--update:before {
-  content: 'O';
+.todo__item--update {
+  mask-image: url('../../assets/grey/edit.svg');
+  -webkit-mask-image: url('../../assets/grey/edit.svg');
+
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+
+  mask-position: center;
+  -webkit-mask-position: center;
+
+  mask-size: contain;
+  -webkit-mask-size: contain;
+
+  padding: 10px;
+
+
+  background-color: #858585;
+}
+
+.todo__item--delete:hover, .todo__item--update:hover  {
+  background-color: #a2a2a2;
 }
 
 .todo__item {
@@ -196,6 +239,13 @@ body {
 
   background-color: var(--item-bg);
   color: var(--item-color);
+
+  overflow: hidden;
+  width:  100%;
+
+
+  transition: all .5s ease;
+
 
 }
 
@@ -213,4 +263,19 @@ body {
   padding-right: 5px;
 }
 
+
+/* animation */
+
+
+.delete-animation {
+
+  border-right: 1px solid black;
+  
+  width: 0%;
+  
+}
+
+.delete-animation .todo__item__actions {
+  display: none;
+}
 

@@ -1,22 +1,38 @@
+/* FONTS */
+@font-face {
+  font-family: 'Perfect DOS VGA 437';
+  src: url('../../assets/bios/fonts/PerfectDOSVGA437.eot');
+  src: url('../../assets/bios/fonts/PerfectDOSVGA437.eot?#iefix') format('embedded-opentype'),
+      url('../../assets/bios/fonts/PerfectDOSVGA437.woff2') format('woff2'),
+      url('../../assets/bios/fonts/PerfectDOSVGA437.woff') format('woff'),
+      url('../../assets/bios/fonts/PerfectDOSVGA437.ttf') format('truetype'),
+      url('../../assets/bios/fonts/PerfectDOSVGA437.svg#PerfectDOSVGA437') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* VARIABLES */
 
 :root {
   /* body */
-  --body-bg: #0000AA;
-  --font-family: 'Consolas', Courier, monospace;
+  --body-bg: #00a;
+  --font-family: 'Perfect DOS VGA 437';
+  
  
   /* todo */
-  --box-shadow: -0.6rem 0.6rem 0 rgba(29, 30, 28, 0.26);
+  --box-shadow: -0.6rem 0.6rem 0 black;
 
-  --todo-borders: 1px solid black;
-  --todo-bg: #fff;
+  --todo-borders: 0px;
+  --todo-bg: #bbbbbb;
 
 
   /* list */
   --list-bg: transparent;
   --list-border-top: 1px solid black;
   --list-border-bottom: 1px solid black;
+
+
 
   /* list-item */
   --item-padding-y: 10px;
@@ -26,7 +42,7 @@
   --item-bg-hover: #d3d3d3;
 
   /* text field */
-  --text-field-borders: 2px solid rgba(0, 0, 0, 0.6);
+  --text-field-borders: none;
   --text-field-bg: #bebebe;
 
 
@@ -75,6 +91,7 @@ body {
 
   box-shadow: var(--box-shadow);
 
+  transition: all .5s ease-in-out;
 }
 
 .todo__content {
@@ -93,6 +110,8 @@ body {
 
 .todo__title {
   padding-bottom: 3px;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 /* Inputs and Buttons */
@@ -110,10 +129,16 @@ body {
   height: 40px;
   flex-grow: 1;
   margin-right: 15px;
-  border-radius: 0;
+  outline: none;
 
 
-  border: var(--text-field-borders);
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+
+  border-bottom: 4px solid black;
+
+
   background-color: var(--text-field-bg);
 }
 
@@ -122,11 +147,15 @@ body {
 .todo__button {
   background-color: var(--button-bg);
 
-  border: var(--button-border);
   font-size: var(--button-font-size);
   color: var(--button-color);
 
   padding: 0 20px 0 20px;
+}
+
+.todo__button:before {
+  content: '< ADD >';
+
 }
 
 .todo__status {
@@ -144,17 +173,12 @@ body {
 
 .todo__button:active {
   background-color: var(--button-bg-active);
-
+  transform: translateY(5px);
 }
 
 /* TODO item controls */
 
-.todo__item--text {
-  padding-left: 5px;
-}
-
 .todo__list {
-  margin: 0 0 15px 0;
   list-style-position: inside;
   border-top: var(--list-border-top);
 
@@ -165,10 +189,14 @@ body {
   max-height: 300px;
   overflow-y: auto;
 
+
+  font-size: 20px;
+
 }
   
 .todo__item__wrapper {
   display: inline;
+  margin-left: -7px;
 
 }
 
@@ -184,12 +212,50 @@ body {
   visibility: hidden;
 }
 
-.todo__item--delete:before {
-  content: 'X';
+.todo__item--delete {
+ 
+  mask-image: url('../../assets/grey/delete.svg');
+  -webkit-mask-image: url('../../assets/grey/delete.svg');
+
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+
+  mask-position: center;
+  -webkit-mask-position: center;
+
+  mask-size: contain;
+  -webkit-mask-size: contain;
+
+  padding: 15px;
+
+
+  background-color: #858585;
+
+  margin-right: 6px;
+  
 }
 
-.todo__item--update:before {
-  content: 'O';
+.todo__item--update {
+  mask-image: url('../../assets/grey/edit.svg');
+  -webkit-mask-image: url('../../assets/grey/edit.svg');
+
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+
+  mask-position: center;
+  -webkit-mask-position: center;
+
+  mask-size: contain;
+  -webkit-mask-size: contain;
+
+  padding: 10px;
+
+
+  background-color: #858585;
+}
+
+.todo__item--delete:hover, .todo__item--update:hover  {
+  background-color: #a2a2a2;
 }
 
 .todo__item {
@@ -197,6 +263,13 @@ body {
 
   background-color: var(--item-bg);
   color: var(--item-color);
+
+  overflow: hidden;
+  width:  100%;
+
+
+  transition: all .5s ease;
+
 
 }
 
@@ -214,4 +287,19 @@ body {
   padding-right: 5px;
 }
 
+
+/* animation */
+
+
+.delete-animation {
+
+  border-right: 1px solid black;
+  white-space: nowrap;
+  width: 0%;
+  
+}
+
+.delete-animation .todo__item__actions {
+  display: none;
+}
 
