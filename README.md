@@ -1,6 +1,6 @@
 ## Description 
 
-Make a todo app in vanilla JS and add theme switching capibilites.
+Make a todo app in vanilla JS and add theme switching capibilites and also session storage.
 
 ## Project status
 
