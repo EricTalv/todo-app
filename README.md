@@ -1,6 +1,12 @@
 ## Description 
 
-Make a todo app in vanilla JS and add theme switching capibilites and also session storage.
+Make a todo app in vanilla JS and add theme switching capibilites.
+
+
+## Other Features
+
+I plan to experiment with animating small interactions
+to make the app more smooth. 
 
 ## Project status
 
