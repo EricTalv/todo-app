@@ -75,6 +75,8 @@ body {
   box-shadow: var(--box-shadow);
 
   transition: all .5s ease-in-out;
+
+  height: fit-content;
 }
 
 .todo__content {
@@ -168,6 +170,8 @@ body {
 
   max-height: 300px;
   overflow-y: auto;
+
+  transition:  all .5s ease;
 
 }
   
@@ -270,7 +274,8 @@ body {
 .delete-animation {
 
   border-right: 1px solid black;
-  
+  white-space: nowrap;
+
   width: 0%;
   
 }
@@ -279,3 +284,38 @@ body {
   display: none;
 }
 
+@media only screen and (max-width: 600px) {
+
+  .todo {
+    width: 500px;
+    height: 90%;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .todo__content {
+    min-height: 60%;
+    max-height: 100%;
+
+    flex-grow: 1;
+  }
+
+  .todo__list {
+    height: 100%;
+    max-height: unset;
+    padding: 0 20px;
+    margin: 0;
+  }
+
+  .todo__inputs {
+    padding-top: 20px;
+  }
+
+  .todo__item__actions {
+    visibility: visible;
+  }
+
+  
+
+}
