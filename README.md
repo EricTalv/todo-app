@@ -7,7 +7,7 @@ Make a todo app in vanilla JS and add theme switching capibilites.
 I plan to experiment with animating small interactions
 to make the app more smooth. 
 
-Also it has session storage, Woo!
+Also it has local storage, Woo!
 
 ## Project status
 
